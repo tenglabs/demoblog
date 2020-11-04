@@ -1,0 +1,43 @@
+
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="mt-3 text-white">
+<h1 >{{ post.title }}</h1>
+<p >
+Published {{ post.date_published }} by {{ post.author }}
+</p>
+{{ post.content|linebreaks }}
+{% if user.is_authenticated %}
+ 
+  <form method="POST" class="mb-5">
+      {% csrf_token %}
+      {{form.as_p}}
+      
+        
+    
+
+
+      
+      <button  type="submit" class="btn btn-outline-light">Send</button>
+  </form>
+{% endif %}
+{% for comment in comments %}
+
+<div>
+   <h3> {{ comment.name }}</h3>
+</div>
+
+    
+  {{ comment.text|linebreaks }}
+
+
+
+
+
+<hr>
+{% empty %}
+    <p>No comments here yet :(</p>
+    
+{% endfor %}
+</div>
+{% endblock %}
